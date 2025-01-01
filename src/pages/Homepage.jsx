@@ -12,7 +12,8 @@ function Homepage() {
 
   useEffect(() => {
     // Fetch data from Flask API using axios
-    axios.get('http://127.0.0.1:5000/home')  // Flask API endpoint
+    // axios.get('http://127.0.0.1:5000/home')
+    axios.get('https://animewebsite-emwh.onrender.com/home/')  // Flask API endpoint
       .then(response => {
         console.log(response.data);  // Debugging: Log the fetched data
         setData(response.data);  // Update state with the fetched data

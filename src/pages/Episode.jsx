@@ -50,7 +50,8 @@ function Episode() {
       if (url) {
         //console.log('Category value updated:', category); // Debugging: Log the updated category
         axios
-          .get(`http://127.0.0.1:5000/home/anime_episode?url=${url}`)
+          // .get(`http://127.0.0.1:5000/home/anime_episode?url=${url}`)
+          .get(`https://animewebsite-emwh.onrender.com/home/anime_episode?url=${url}`)
           .then((response) => {
             //console.log('API Response:', response.data); // Debugging: Log the response data
             setData(response.data);
