@@ -8,6 +8,7 @@ import AnimeDetail from './pages/AnimeDetail'
 import Episode from './pages/Episode'
 import Category from './pages/Category'
 import SearchResult from './pages/SearchResult'
+import AnimeGenres from './pages/AnimeGenres'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <Route path='/anime_episode' element={<Episode/>}  />
       <Route path='/home_cat' element={<Category/>}  />
       <Route path='/search' element={<SearchResult/>}  />
+      <Route path='/anime_genres' element={<AnimeGenres/>}  />
     </Routes>
     
 

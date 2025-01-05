@@ -87,7 +87,7 @@ function SearchResult() {
           <div className='flex-none w-[20vh] h-[28vh] bg-blue-500 text-white rounded-lg p-4 shadow-lg bg-cover'
           style={{ backgroundImage: `url(${anime.img})` }}>
           </div>
-          <h3 className='p-2 w-[20vh]  h-[10vh] overflow-hidden font-semibold text-white '>{ anime.title }</h3>
+          <h3 className='p-2 w-[20vh]  h-[9vh] overflow-hidden font-semibold text-white '>{ anime.title }</h3>
           <div className='p-2 flex justify-between mt-1 text-white '>
             <p className='w-8 text-center p-1 font-bold rounded-md text-[12px]  bg-[#e50914]'>{ anime.language }</p>
             <p className='w-[fit-content] text-center p-1 font-bold rounded-md text-[12px]  bg-[#e50914]'>{ anime.series }</p>

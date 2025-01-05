@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import bgImage from '../assets/images/animebackend.png'
+import playButton from '../assets/images/play-512-removebg-preview.webp'
 
 function AnimeDetail() {
 
@@ -13,6 +14,7 @@ function AnimeDetail() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  // const [url, seturl] = useState('');
 
   // First useEffect to update the category state from query parameters
   useEffect(() => {
@@ -120,7 +122,7 @@ function AnimeDetail() {
               <section className='relative'>
                 <div className=' border-2 border-red-500    bg-cover bg-center  w-full h-[40vh] flex items-center justify-center sm:h-[60vh] md:h-[70vh] lg:h-[80vh] '
                   style={{ backgroundImage: `url(${item.cover_img})` }}>
-                  <img src={item.img} alt='' className='border-4 border-[#e50914] h-[30vh] md:h-[50vh]' />
+                  <img src={item.img} alt='No Preview' className='text-red-600  bg-black border-4 border-[#e50914] h-[30vh] md:h-[50vh]' />
                 </div>
                 <div className='fadeBottom' style={{ height: '120px', background: 'linear-gradient(180deg, transparent, rgba(37, 37, 37, .61), #141414)', position: 'absolute', left: '0', bottom: '0', width: '100%' }}></div>
               </section>
@@ -128,9 +130,16 @@ function AnimeDetail() {
               {/*----------------- Anime detail--------------------------------------------------  */}
 
               <section className='text-white p-2'>
-                <h1 id='h1-border' class='font-bold text-2xl z-50 underline  underline-offset-8 sm:text-3xl md:text-4xl lg:text-5xl'>{item.title}</h1>
-                <div dangerouslySetInnerHTML={{ __html: item.genres }} />
-                <a href=''><h2 class='font-bold text-white bg-[#E50914] p-1 rounded-md text-2xl text-center mt-8'>Play Now</h2></a>
+                {/* <h1 id='h1-border' class='font-bold text-2xl z-50 underline  underline-offset-8 sm:text-3xl md:text-4xl lg:text-3xl'>{item.title}</h1> */}
+                <h1 id='h1-border' class='font-bold text-1xl z-50 underline  underline-offset-8 sm:text-2xl '>{item.title}</h1>
+                {/* <div dangerouslySetInnerHTML={{ __html: item.genres }} /> */}
+                <div className='mt-4 flex gap-2'>
+                {data[0].genres.map((gen, index) => (
+                 <Link to={`/anime_genres?category=${gen.link}`} key={index} className='text-1xl text-white bg-[#2f2f2f] px-1 rounded-sm'>{gen.text}</Link>
+
+                ))}
+                </div>  
+                <a href='#episodes' ><h2 className='font-bold bg-white text-black p-2  text-1xl text-center mt-8 flex items-center justify-center'><img className='mr-2 w-5 h-5' src={playButton} alt="" />Play Now</h2></a>
                 <h2 className='mt-5 text-[14px]' dangerouslySetInnerHTML={{ __html: item.status }} />
                 <h2 class='font-bold text-white text-2xl  underline decoration-red-800 mt-[5vh]'>Synopsis {item.title} </h2>
                 <div style={{ width: '100%', height: '10vh', overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: item.description }} />
@@ -139,7 +148,7 @@ function AnimeDetail() {
 
               {/*-------------------------- Episodes ---------------------------------------------*/}
 
-              <section className='p-2 w-full flex flex-col justify-center items-center'>
+              <section id='episodes' className='p-2 w-full flex flex-col justify-center items-center'>
                 <h1 className='font-bold text-white  text-3xl  underline decoration-red-800'>Episodes</h1>
                 <div className='mt-5 mb-9 w-full'>
                   {/* <div className='w-full text-white mt-8  h-[70vh] overflow-auto' dangerouslySetInnerHTML={{ __html: item.episodes }} /> */}
@@ -149,6 +158,7 @@ function AnimeDetail() {
                      <div className='text-white'>{ep.episode_number}</div>
                      <div className='text-white'>{ep.release_date}</div>
                      <div className='text-white bg-red-700 rounded-md px-2'>{ep.sub_status}</div>
+                     
                      {/* <div className='text-white'>{ep.title}</div> */}
                      
                      </div>
