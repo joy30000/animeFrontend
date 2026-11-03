@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import bgImage from '../assets/images/animebackend.png'
 import playButton from '../assets/images/play-512-removebg-preview.webp'
+import SorryImg from '../assets/images/sorryNoImg.webp'
 
 function AnimeDetail() {
 
@@ -122,7 +123,12 @@ function AnimeDetail() {
               <section className='relative'>
                 <div className=' border-2 border-red-500    bg-cover bg-center  w-full h-[40vh] flex items-center justify-center sm:h-[60vh] md:h-[70vh] lg:h-[80vh] '
                   style={{ backgroundImage: `url(${item.cover_img})` }}>
-                  <img src={item.img} alt='No Preview' className='text-red-600  bg-black border-4 border-[#e50914] h-[30vh] md:h-[50vh]' />
+                  <img src={item.img || SorryImg} alt='noimg'
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = SorryImg;
+                    }}
+                    className='text-red-600  bg-black border-4 border-[#e50914] h-[30vh] md:h-[50vh]' />
                 </div>
                 <div className='fadeBottom' style={{ height: '120px', background: 'linear-gradient(180deg, transparent, rgba(37, 37, 37, .61), #141414)', position: 'absolute', left: '0', bottom: '0', width: '100%' }}></div>
               </section>
@@ -134,11 +140,11 @@ function AnimeDetail() {
                 <h1 id='h1-border' class='font-bold text-1xl z-50 underline  underline-offset-8 sm:text-2xl '>{item.title}</h1>
                 {/* <div dangerouslySetInnerHTML={{ __html: item.genres }} /> */}
                 <div className='mt-4 flex gap-2'>
-                {data[0].genres.map((gen, index) => (
-                 <Link to={`/anime_genres?category=${gen.link}`} key={index} className='text-1xl text-white bg-[#2f2f2f] px-1 rounded-sm'>{gen.text}</Link>
+                  {data[0].genres.map((gen, index) => (
+                    <Link to={`/anime_genres?category=${gen.link}`} key={index} className='text-1xl text-white bg-[#2f2f2f] px-1 rounded-sm'>{gen.text}</Link>
 
-                ))}
-                </div>  
+                  ))}
+                </div>
                 <a href='#episodes' ><h2 className='font-bold bg-white text-black p-2  text-1xl text-center mt-8 flex items-center justify-center'><img className='mr-2 w-5 h-5' src={playButton} alt="" />Play Now</h2></a>
                 <h2 className='mt-5 text-[14px]' dangerouslySetInnerHTML={{ __html: item.status }} />
                 <h2 class='font-bold text-white text-2xl  underline decoration-red-800 mt-[5vh]'>Synopsis {item.title} </h2>
@@ -154,16 +160,16 @@ function AnimeDetail() {
                   {/* <div className='w-full text-white mt-8  h-[70vh] overflow-auto' dangerouslySetInnerHTML={{ __html: item.episodes }} /> */}
                   {data[0].episodes.map((ep, index) => (
                     <Link to={`/anime_episode?url=${ep.url}`}>
-                    <div key={index} className='flex gap-3 mt-2 items-center justify-between'>
-                     <div className='text-white'>{ep.episode_number}</div>
-                     <div className='text-white'>{ep.release_date}</div>
-                     <div className='text-white bg-red-700 rounded-md px-2'>{ep.sub_status}</div>
-                     
-                     {/* <div className='text-white'>{ep.title}</div> */}
-                     
-                     </div>
-                     </Link>
-                    ))}
+                      <div key={index} className='flex gap-3 mt-2 items-center justify-between'>
+                        <div className='text-white'>{ep.episode_number}</div>
+                        <div className='text-white'>{ep.release_date}</div>
+                        <div className='text-white bg-red-700 rounded-md px-2'>{ep.sub_status}</div>
+
+                        {/* <div className='text-white'>{ep.title}</div> */}
+
+                      </div>
+                    </Link>
+                  ))}
                 </div>
               </section>
 
@@ -179,7 +185,7 @@ function AnimeDetail() {
             <div id='slider_popular' class='flex gap-4 overflow-x-auto p-4 ' style={{ scrollBehavior: 'smooth' }}>
               {data[0].Similar_Anime_List.map((sanime, index) => (
                 // ---------------------------card----------------------------------------
-                <Link  to={`/anime_detail?category=${sanime.link}`} key={index} className=' bg-[#2f2f2f] h-[fit-content] w-[fit-content] rounded-lg block transition-transform duration-300 ease-in-out transform hover:scale-[1.2] ' href=''>
+                <Link to={`/anime_detail?category=${sanime.link}`} key={index} className=' bg-[#2f2f2f] h-[fit-content] w-[fit-content] rounded-lg block transition-transform duration-300 ease-in-out transform hover:scale-[1.2] ' href=''>
                   <div className='flex-none w-[20vh] h-[28vh] bg-blue-500 text-white rounded-lg p-4 shadow-lg bg-cover' style={{ backgroundImage: `url(${sanime.img})` }}></div>
                   <h3 className=' w-[20vh] p-2  h-[7vh] overflow-hidden font-semibold text-white '> {sanime.title}</h3>
                   <div className='p-2 flex justify-between mt-1 text-white '>
